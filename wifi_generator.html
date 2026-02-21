@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Wi-Fi Password Generator</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    background: #f4f6fa;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+  }
+  .container {
+    background: white;
+    padding: 25px 30px;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+    text-align: center;
+    width: 90%;
+    max-width: 400px;
+  }
+  input {
+    width: 80%;
+    padding: 10px;
+    margin: 10px 0;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+  }
+  button {
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #0078D7;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+  }
+  button:hover {
+    background-color: #005fa3;
+  }
+  .result {
+    margin-top: 15px;
+    font-weight: bold;
+    color: #333;
+    word-break: break-all;
+  }
+  footer {
+    margin-top: 20px;
+    font-size: 12px;
+    color: gray;
+  }
+</style>
+</head>
+<body>
+  <div class="container">
+    <h2>Wi-Fi Password Generator</h2>
+    <input type="text" id="ssid" placeholder="Enter SSID">
+    <br>
+    <button onclick="generate()">Continue</button>
+    <div class="result" id="result"></div>
+    <footer>Made by Mohamed Nour</footer>
+  </div>
+
+  <script>
+    const map = {
+      '1':'e','2':'d','3':'c','4':'b','5':'a',
+      '6':'9','7':'8','8':'7','9':'6','0':'f',
+      'e':'1','d':'2','c':'3','b':'4','a':'5','f':'0',
+      'E':'1','D':'2','C':'3','B':'4','A':'5','F':'0'
+    };
+
+    function convert(ssid) {
+      let part = ssid.trim().slice(-6);
+      let result = "";
+      for (let ch of part) {
+        result += map[ch] || ch;
+      }
+      return "wlan" + result;
+    }
+
+    function generate() {
+      const ssid = document.getElementById("ssid").value;
+      if (!ssid) {
+        alert("Please enter SSID!");
+        return;
+      }
+      const password = convert(ssid);
+      document.getElementById("result").innerText = "Password: " + password;
+    }
+  </script>
+</body>
+</html>
